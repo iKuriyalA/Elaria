@@ -24,6 +24,11 @@ class Stack:
             print(f"| {item} |")
             print("-----")
 
+def split_list_vals(values):
+    vals = values[1:len(values)-1]
+    f_vals = vals.split(",")
+    return f_vals
+
 def run_command(command, data_structure):
     parts = command.strip().split()
     if not parts:
@@ -39,16 +44,12 @@ def run_command(command, data_structure):
     elif action == "PUSH":
         if 'stack' in data_structure:
             if len(parts) > 1:
-                try:
-                    value = int(parts[1])
-                except ValueError:
-                    value = parts[1]  # allow strings too
-                data_structure['stack'].push(value)
-            else:
-                print("Usage: PUSH <value>")
+                f_vals = split_list_vals(parts[1])
+            for val in f_vals:
+                data_structure['stack'].push(val)
         else:
             print("No stack exists. Create one first.")
-    
+            
     elif action == "POP":
         if 'stack' in data_structure:
             data_structure['stack'].pop()
