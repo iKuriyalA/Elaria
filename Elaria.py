@@ -65,11 +65,14 @@ def run_command(command, data_structure):
         return False  # stop running
     
     elif action == "DIAGRAM":
-        if 'stack' in data_structure:
-            data_structure["stack"].diagram()
-        else:
-            print("No stack exists. Create one first.")
-
+        if len(parts) == 1:
+            print("No given data structure to visualize!")
+            return True
+        elif parts[1] == "STACK":  
+            if 'stack' in data_structure:
+             data_structure["stack"].diagram()
+            else:
+              print("No stack exists. Create one first.")
     else:
         print("Unknown command:", action)
 
