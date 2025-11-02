@@ -22,7 +22,6 @@ def main():
         running = El.run_command(command, data_structures)
   ``` 
 Add the main stream and the program is ready to run: 
-Test-
  ```
 if __name__ == "__main__":
     main()
