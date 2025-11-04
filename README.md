@@ -98,3 +98,6 @@ All values must be inside brackets to avoid logic errors.
 # | 10 |
 # -----
 ```
+# Algorithms
+Here are the current algorithms used in this language. Following descriptions include how to use them and implement them.
+
