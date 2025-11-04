@@ -6,7 +6,7 @@ class Array:
        self.data.append(value)
        print(f"Added {value} to array")
 
-
+#sujal was here
    def insert(self, value, index):
        self.data.insert(index, value)
        print(f"Inserted {value} at index {index} in array")
