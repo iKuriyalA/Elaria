@@ -133,3 +133,31 @@ def run_command(command, data_structure):
 
    data_structure[ds_type].execute_command(sub_action, args)
    return True
+
+class SearchAlgorithms:
+
+    def list_diagram_display(arr, highlight_index=None):
+    top = "┌" + "┬".join(["───" for val in arr]) + "┐"
+    mid = "│" + "│".join([f"{str(val).center(3)}" for val in arr]) + "│"
+    bottom = "└" + "┴".join(["───" for val in arr]) + "┘"
+
+    pointer_line = ""
+    if highlight_index is not None:
+        spaces = 2 + 4 * highlight_index
+        pointer_line = " " * spaces + "↑\n" + " " * spaces + "i\n"
+
+    print(top)
+    print(mid)
+    print(bottom)
+    if highlight_index is not None:
+        print(pointer_line)
+
+    def linear_search(arr, target):
+        visual = []
+        for index, value in enumerate(arr):
+            list_diagram_display(arr, index)
+            if value == target:
+                print(f"{target} found at index {index}")
+                return index
+        return -1
+
