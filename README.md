@@ -20,7 +20,7 @@ def main():
     running = True
     while running:
         command = input(">>> ")
-        running = El.run_command(command, data_structures)
+        running = Elaria.run_command(command, data_structures)
   ``` 
 Add the main stream and the program is ready to run: 
  ```
@@ -52,21 +52,7 @@ Once you have create an array, you will be able to use the following commands:
 
 All values must be inside brackets to avoid logic errors.  
 ### Example Session  
-```
->>> CREATE ARRAY
-# Created a new array
->>> ARRAY ADD [a,b,c]
-# Added a to array
-# Added b to array
-# Added c to array
->>> ARRAY INSERT [x,1]
-# Inserted x at index 1 in array
->>> ARRAY REMOVE [c]
-# Removed c from array
->>> ARRAY DIAGRAM
-# Array diagram:
-# (0, 'a') (1, 'x') (2, 'b')
-```
+![image alt](https://github.com/iKuriyalA/Elaria/blob/673f65b93efff9116e077e2d2a1ea3a9cfc4962b/ExArrayRun.png)
 
 ## Stacks
 The stack structure is a basic model of first-in last-out data storage.
@@ -83,23 +69,15 @@ Once you have create a stack, you will be able to use the following commands:
 
 All values must be inside brackets to avoid logic errors.  
 ### Example Session 
-```
->>> CREATE STACK
-# Created a new stack
->>> STACK PUSH [10,20,30]
-# Pushed 10 to stack
-# Pushed 20 to stack
-# Pushed 30 to stack
->>> STACK POP
-# Popped 30 from stack
->>> STACK DIAGRAM
-# Stack diagram:
-# | 20 |
-# -----
-# | 10 |
-# -----
-```
-# Algorithms
-Here are the current algorithms used in this language. Following descriptions include how to use them and implement them.
+![image alt](https://github.com/iKuriyalA/Elaria/blob/673f65b93efff9116e077e2d2a1ea3a9cfc4962b/ExStackRun.png)
 
->>>>>>> 4b51f5c057b17395cfeb231d40b0bf6ae6c84690
+# Algorithms
+Here are the current algorithms used in this language. Following descriptions include how to use them and implement them.  
+
+## SearchAlgorithms
+Algorithms designed to locate a specific value from data using a specific method and path.
+
+### Linear Search
+### Binary Search
+### Depth First Search
+### Breadth First Search
