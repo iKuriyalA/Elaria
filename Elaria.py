@@ -56,7 +56,7 @@ class Stack:
            print(f"Popped {value} from stack")
            return value
 
-    def stack_diagram(self):
+   def stack_diagram(self):
         print("Stack diagram:")
         print("┌───────────────────┐")
         for i, item in enumerate(reversed(self.data)):
@@ -65,7 +65,7 @@ class Stack:
                 print("├───────────────────┤")
         print("└───────────────────┘")
 
-    def execute_command(self, action, args):
+   def execute_command(self, action, args):
         action = action.upper()
         if action == "PUSH":
             for val in args:
