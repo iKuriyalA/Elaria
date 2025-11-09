@@ -1,7 +1,5 @@
 # Elaria
-<<<<<<< HEAD
-Computer language allowing users to build data structures and run algorithms, with the ability to visualize them. Perfect for people learning the in-depth of DSA and for people who  want to learn how to solve complex coding questions>
-=======
+
 Computer language allowing users to build data structures and run algorithms, with the ability to visualize them. Perfect for people learning the in-depth of DSA and for people who  want to learn how to solve complex coding questions.
 
 ### How to Setup

@@ -126,7 +126,7 @@ def run_command(command, data_structure):
     ds_type = action.lower()
 
     if ds_type not in data_structure:
-        print(f"No {ds_type} exists. Create one first.")
+        print(f"No {ds_type} exists. Create one first..")
         return True
 
     if len(parts) < 2:
