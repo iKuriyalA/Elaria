@@ -40,21 +40,21 @@ class Array:
             print(f"Unknown command for Array: {action}")
 
 class Stack:
-    def __init__(self):
-        self.data = []
-    
-    def push(self, value):
-        self.data.append(value)
-        print(f"Pushed {value} to stack")
-    
-    def pop(self):
-        if not self.data:
-            print("Stack is empty")
-            return None
-        else:
-            value = self.data.pop()
-            print(f"Popped {value} from stack")
-            return value
+   def __init__(self):
+       self.data = []
+  
+   def push(self, value):
+       self.data.append(value)
+       print(f"Pushed {value} to stack")
+  
+   def pop(self):
+       if not self.data:
+           print("Stack is empty")
+           return None
+       else:
+           value = self.data.pop()
+           print(f"Popped {value} from stack")
+           return value
 
     def stack_diagram(self):
         print("Stack diagram:")
@@ -77,10 +77,25 @@ class Stack:
         else:
             print(f"Unknown command for Stack: {action}")
 
+
+   def execute_command(self, action, args):
+       action = action.upper()
+       if action == "PUSH":
+           for val in args:
+               self.push(val)
+       elif action == "POP":
+           self.pop()
+       elif action == "DIAGRAM":
+           self.stack_diagram()
+       else:
+           print(f"Unknown command for Stack: {action}")
+
+
 def split_list_vals(values):
-    vals = values[1:len(values)-1]
-    f_vals = vals.split(",")
-    return f_vals
+   vals = values[1:len(values)-1]
+   f_vals = vals.split(",")
+   return f_vals
+
 
 def run_command(command, data_structure):
     parts = command.strip().split(maxsplit=2)
