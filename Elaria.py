@@ -58,9 +58,12 @@ class Stack:
 
     def stack_diagram(self):
         print("Stack diagram:")
-        for item in reversed(self.data):
-            print(f"| {item} |")
-            print("-----")
+        print("┌───────────────────┐")
+        for i, item in enumerate(reversed(self.data)):
+            print(f"│ {str(item).center(17)} │")
+            if i < len(self.data) - 1:
+                print("├───────────────────┤")
+        print("└───────────────────┘")
 
     def execute_command(self, action, args):
         action = action.upper()
