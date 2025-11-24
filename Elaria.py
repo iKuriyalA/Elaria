@@ -1,4 +1,3 @@
-# elaria.py
 from data_structures import Array, Stack
 from algorithms import SearchAlgorithms, list_diagram_display
 
@@ -15,9 +14,6 @@ def run_command(command, data_structures):
 
     action = parts[0].upper()
 
-    # -------------------------
-    # CREATE stack / array
-    # -------------------------
     if action == "CREATE":
         if len(parts) < 2:
             print("There is nothing to create")
@@ -34,14 +30,9 @@ def run_command(command, data_structures):
             print("Unsupported data structure.")
         return True
 
-    # Exit program
     if action == "EXIT":
         return False
 
-    # -------------------------
-    # DATA STRUCTURE COMMANDS
-    # e.g. ARRAY ADD [1,2]
-    # -------------------------
     ds_type = action.lower()
 
     if ds_type in ("linearsearch", "binarysearch"):
@@ -81,11 +72,8 @@ def run_algorithm_command(algo, parts):
     else:
         SearchAlgorithms.binary_search(arr, target)
 
-<<<<<<< HEAD
-=======
 
     data_structure[ds_type].execute_command(sub_action, args)
->>>>>>> 2bf19826147147fffba7dc3a89783282616992c5
     return True
 
 class SearchAlgorithms:
