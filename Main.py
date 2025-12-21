@@ -1,4 +1,5 @@
 import Elaria
+
 def main():
     data_structures = {}
     running = True

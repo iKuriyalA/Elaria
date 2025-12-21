@@ -17,6 +17,7 @@ def list_diagram_display(arr, highlight_index=None):
 
 
 class SearchAlgorithms:
+    @staticmethod
     def linear_search(arr, target):
         for index, value in enumerate(arr):
             list_diagram_display(arr, index)
@@ -24,13 +25,14 @@ class SearchAlgorithms:
                 print(f"{target} found at index {index}")
                 return index
         return -1
-  
+
+    @staticmethod
     def binary_search(arr, target):
         arr = sorted(arr)
         print("Sorted Array:")
         list_diagram_display(arr)
 
-        left, right = 0, len(arr)-1
+        left, right = 0, len(arr) - 1
         counter = 0
         while left <= right:
             mid = (left + right) // 2
