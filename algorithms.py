@@ -1,19 +1,21 @@
-def list_diagram_display(arr, highlight_index=None):
+def list_diagram_display(arr, highlight_index=None, highlight_2nd_index=None):
     top = "┌" + "┬".join(["───" for _ in arr]) + "┐"
     mid = "│" + "│".join([f"{str(val).center(3)}" for val in arr]) + "│"
     bottom = "└" + "┴".join(["───" for _ in arr]) + "┘"
-
-    pointer_line = ""
-    if highlight_index is not None:
-        spaces = 2 + 4 * highlight_index
-        pointer_line = " " * spaces + "↑\n" + " " * spaces + "i\n"
 
     print(top)
     print(mid)
     print(bottom)
 
     if highlight_index is not None:
-        print(pointer_line)
+        spaces = 2 + 4 * highlight_index
+        print(" " * spaces + "↑")
+        print(" " * spaces + "i")
+
+    if highlight_2nd_index is not None:
+        spaces = 2 + 4 * highlight_2nd_index
+        print(" " * spaces + "↑")
+        print(" " * spaces + "j")
 
 
 class SearchAlgorithms:
@@ -34,10 +36,10 @@ class SearchAlgorithms:
 
         left, right = 0, len(arr) - 1
         counter = 0
+
         while left <= right:
             mid = (left + right) // 2
             counter += 1
-
             print(f"Iteration {counter}:")
             list_diagram_display(arr, mid)
 
@@ -49,3 +51,54 @@ class SearchAlgorithms:
             else:
                 right = mid - 1
         return -1
+
+
+class SortingAlgorithms:
+    @staticmethod
+    def insertion_sort_descending(arr):
+        for i in range(1, len(arr)):
+            j = i
+            while j > 0 and arr[j - 1] < arr[j]:
+                arr[j], arr[j - 1] = arr[j - 1], arr[j]
+                list_diagram_display(arr, j)
+                j -= 1
+        print("Finalized Array (using descending insertion sort algorithm):")
+        list_diagram_display(arr)
+
+    @staticmethod
+    def selection_sort_desending(arr):
+        for i in range(len(arr)):
+            j = i
+            for l in range(i + 1, len(arr)):
+                if arr[l] > arr[j]:
+                    j = l
+                    list_diagram_display(arr, i, j)
+
+            if j != i:
+                arr[i], arr[j] = arr[j], arr[i]
+                list_diagram_display(arr, i)
+
+        print("Finalized Array (using descending selection sort algorithm):")
+        list_diagram_display(arr)
+
+    @staticmethod
+    def mergesort(a):
+        if len(a) <= 1:
+            return a
+
+        mid = len(a) // 2
+        left = SortingAlgorithms.mergesort(a[:mid])
+        right = SortingAlgorithms.mergesort(a[mid:])
+        return SortingAlgorithms.merge(left, right)
+
+    @staticmethod
+    def merge(a, b):
+        c = []
+        while a and b:
+            if a[0] > b[0]:
+                c.append(b.pop(0))
+            else:
+                c.append(a.pop(0))
+        c.extend(a)
+        c.extend(b)
+        return c
