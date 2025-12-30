@@ -36,6 +36,7 @@ class SearchAlgorithms:
 
         left, right = 0, len(arr) - 1
         counter = 0
+
         while left <= right:
             mid = (left + right) // 2
             counter += 1
