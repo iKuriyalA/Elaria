@@ -1,23 +1,12 @@
-"""
-main.py
---------
-Program entry point.
-Responsible ONLY for:
-- starting the CLI loop
-- passing user input to Elaria's command engine
-"""
+# Program entry point and REPL loop
 
 import Elaria
 
 
 def main():
-    # Stores all created data structures (array, stack, queue, etc.)
-    data_structures = {}
-
-    print("Elaria — Data Structures & Algorithms Visualizer")
-    print("Type EXIT to quit.\n")
-
+    data_structures = {}  # Stores active structures
     running = True
+
     while running:
         command = input(">>> ")
         running = Elaria.run_command(command, data_structures)
