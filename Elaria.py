@@ -1,5 +1,9 @@
 from data_structures import Array, Stack, Queue
-from algorithms import SearchAlgorithms, SortingAlgorithms
+from algorithms import (
+    SearchAlgorithms,
+    SortingAlgorithms,
+    list_diagram_display
+)
 
 
 def split_list_vals(values):
@@ -45,8 +49,11 @@ def run_command(command, data_structures):
     # -------------------------
     algo = action.lower()
     if algo in (
-        "linearsearch", "binarysearch",
-        "insertionsort", "selectionsort", "mergesort"
+        "linearsearch",
+        "binarysearch",
+        "insertionsort",
+        "selectionsort",
+        "mergesort",
     ):
         return run_algorithm_command(algo, parts)
 
@@ -101,6 +108,6 @@ def run_algorithm_command(algo, parts):
     elif algo == "mergesort":
         result = SortingAlgorithms.mergesort(arr)
         print("Finalized Array (using merge sort):")
-        SortingAlgorithms.list_diagram_display(result)
+        list_diagram_display(result)
 
     return True
