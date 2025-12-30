@@ -1,51 +1,78 @@
-def list_diagram_display(arr, highlight_index=None):
-    top = "┌" + "┬".join(["───" for _ in arr]) + "┐"
-    mid = "│" + "│".join([f"{str(val).center(3)}" for val in arr]) + "│"
-    bottom = "└" + "┴".join(["───" for _ in arr]) + "┘"
+"""
+algorithms.py
+-------------
+Contains all algorithm logic + visualizations.
+Algorithms NEVER modify program state.
+"""
 
-    pointer_line = ""
-    if highlight_index is not None:
-        spaces = 2 + 4 * highlight_index
-        pointer_line = " " * spaces + "↑\n" + " " * spaces + "i\n"
+import time
+
+
+# --------------------------------------------------
+# Visualization Helper
+# --------------------------------------------------
+def list_diagram_display(arr, highlight_index=None):
+    """
+    Draws an ASCII array diagram.
+    Optionally highlights a single index.
+    """
+    top = "┌" + "┬".join(["───"] * len(arr)) + "┐"
+
+    mid = "│"
+    for i, val in enumerate(arr):
+        if i == highlight_index:
+            mid += f"\033[92m{str(val).center(3)}\033[0m│"
+        else:
+            mid += f"{str(val).center(3)}│"
+
+    bottom = "└" + "┴".join(["───"] * len(arr)) + "┘"
 
     print(top)
     print(mid)
     print(bottom)
+    print()
+    time.sleep(0.5)
 
-    if highlight_index is not None:
-        print(pointer_line)
 
-
+# --------------------------------------------------
+# Search Algorithms
+# --------------------------------------------------
 class SearchAlgorithms:
+
     @staticmethod
     def linear_search(arr, target):
-        for index, value in enumerate(arr):
-            list_diagram_display(arr, index)
-            if value == target:
-                print(f"{target} found at index {index}")
-                return index
+        """
+        Time: O(n)
+        Space: O(1)
+        """
+        print("Linear Search:\n")
+        for i in range(len(arr)):
+            list_diagram_display(arr, i)
+            if arr[i] == target:
+                return i
         return -1
 
     @staticmethod
     def binary_search(arr, target):
-        arr = sorted(arr)
-        print("Sorted Array:")
-        list_diagram_display(arr)
+        """
+        Time: O(log n)
+        Space: O(1)
 
+        NOTE:
+        Array must be sorted.
+        """
+        print("Binary Search:\n")
         left, right = 0, len(arr) - 1
-        counter = 0
+
         while left <= right:
             mid = (left + right) // 2
-            counter += 1
-
-            print(f"Iteration {counter}:")
             list_diagram_display(arr, mid)
 
             if arr[mid] == target:
-                print(f"Found {target} in {counter} iterations.")
                 return mid
             elif arr[mid] < target:
                 left = mid + 1
             else:
                 right = mid - 1
+
         return -1
