@@ -4,12 +4,13 @@ import Elaria
 
 
 def main():
-    data_structures = {}  # Stores active structures
-    running = True
+    data_structures = {}
+    Elaria.show_help()
 
-    while running:
+    while True:
         command = input(">>> ")
-        running = Elaria.run_command(command, data_structures)
+        if not Elaria.run_command(command, data_structures):
+            break
 
 
 if __name__ == "__main__":
