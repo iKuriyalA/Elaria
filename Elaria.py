@@ -1,70 +1,124 @@
-# Central command router (no algorithms or data stored here)
+# Central command router
 
 from data_structures import Array, Stack, Queue
-from algorithms import SearchAlgorithms, SortingAlgorithms
+from algorithms import (
+    linear_search,
+    binary_search,
+    insertion_sort_descending,
+    selection_sort_descending,
+    merge_sort_visual
+)
 
 
-def split_list_vals(values):
-    # Convert "[1,2,3]" → [1, 2, 3]
-    values = values.strip()
-    if not values.startswith("[") or not values.endswith("]"):
-        raise ValueError("Invalid list format")
-    inner = values[1:-1].strip()
-    return [] if inner == "" else [int(v.strip()) for v in inner.split(",")]
+def parse_list(text):
+    text = text.strip()
+    if not (text.startswith("[") and text.endswith("]")):
+        raise ValueError("List must be in [1,2,3] format")
+    inner = text[1:-1].strip()
+    return [] if inner == "" else [int(x.strip()) for x in inner.split(",")]
+
+
+def show_help():
+    print("""
+================= ELARIA HELP =================
+
+--- DATA STRUCTURES ---
+CREATE STACK
+CREATE QUEUE
+CREATE ARRAY
+
+STACK PUSH [1,2,3]
+STACK POP
+QUEUE ENQUEUE [1,2,3]
+QUEUE DEQUEUE
+ARRAY ADD [1,2,3]
+ARRAY REMOVE [2]
+<structure> DIAGRAM
+
+--- SEARCH ALGORITHMS ---
+LINEARSEARCH [1,2,3,4,5] 4
+BINARYSEARCH [1,2,3,4,5] 4
+
+--- SORTING ALGORITHMS ---
+INSERTIONSORT [5,1,4,2]
+SELECTIONSORT [5,1,4,2]
+MERGESORT [5,1,4,2]
+
+--- SYSTEM ---
+HELP
+EXIT
+
+===============================================
+""")
 
 
 def run_command(command, data_structures):
     if not command.strip():
         return True
 
-    parts = command.split(maxsplit=1)
-    action = parts[0].upper()
+    parts = command.strip().split(maxsplit=1)
+    cmd = parts[0].upper()
 
-    # Exit program
-    if action == "EXIT":
+    # ---------------- SYSTEM ----------------
+    if cmd == "EXIT":
         return False
 
-    # Create data structure
-    if action == "CREATE":
-        ds = parts[1].lower()
-        data_structures[ds] = {"array": Array, "stack": Stack, "queue": Queue}[ds]()
-        print(f"Created {ds}")
+    if cmd == "HELP":
+        show_help()
         return True
 
-    # Algorithm commands
-    if action == "ALGO":
-        return run_algorithm_command(parts[1])
+    # ---------------- CREATE ----------------
+    if cmd == "CREATE":
+        name = parts[1].strip().lower()
+        if name == "stack":
+            data_structures["stack"] = Stack()
+        elif name == "queue":
+            data_structures["queue"] = Queue()
+        elif name == "array":
+            data_structures["array"] = Array()
+        else:
+            print("Unknown data structure")
+            return True
 
-    # Data structure commands
-    ds = action.lower()
-    if ds not in data_structures:
-        print(f"No {ds} exists.")
+        print(f"{name.capitalize()} created")
         return True
 
-    sub = parts[1].split(maxsplit=1)
-    action = sub[0].upper()
-    args = split_list_vals(sub[1]) if len(sub) > 1 else []
+    # ---------------- SEARCH ----------------
+    if cmd in ("LINEARSEARCH", "BINARYSEARCH"):
+        rest = parts[1]
+        list_part, target = rest.rsplit(maxsplit=1)
+        arr = parse_list(list_part)
+        target = int(target)
 
-    data_structures[ds].execute_command(action, args)
-    return True
+        if cmd == "LINEARSEARCH":
+            linear_search(arr, target)
+        else:
+            arr.sort()
+            binary_search(arr, target)
 
+        return True
 
-def run_algorithm_command(command):
-    parts = command.split(maxsplit=1)
-    algo = parts[0].lower()
-    arr = split_list_vals(parts[1])
+    # ---------------- SORT ----------------
+    if cmd in ("INSERTIONSORT", "SELECTIONSORT", "MERGESORT"):
+        arr = parse_list(parts[1])
 
-    if algo == "linearsearch":
-        SearchAlgorithms.linear_search(arr[:-1], arr[-1])
-    elif algo == "binarysearch":
-        SearchAlgorithms.binary_search(arr[:-1], arr[-1])
-    elif algo == "insertionsort":
-        SortingAlgorithms.insertion_sort_descending(arr)
-    elif algo == "selectionsort":
-        SortingAlgorithms.selection_sort_descending(arr)
-    elif algo == "mergesort":
-        SortingAlgorithms.display(SortingAlgorithms.merge_sort(arr))
-    else:
-        print("Unknown algorithm")
+        if cmd == "INSERTIONSORT":
+            insertion_sort_descending(arr)
+        elif cmd == "SELECTIONSORT":
+            selection_sort_descending(arr)
+        else:
+            merge_sort_visual(arr)
 
+        return True
+
+    # ---------------- DATA STRUCTURES ----------------
+    ds_name = cmd.lower()
+    if ds_name not in data_structures:
+        print(f"{ds_name} does not exist")
+        return True
+
+    subcmd, *rest = parts[1].split(maxsplit=1)
+    args = parse_list(rest[0]) if rest else []
+
+    data_structures[ds_name].execute_command(subcmd.upper(), args)
     return True
