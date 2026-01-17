@@ -8,6 +8,7 @@ from algorithms import (
     selection_sort_descending,
     merge_sort_visual
 )
+from learn_mode import LearnMode
 
 
 def parse_list(text):
@@ -44,6 +45,10 @@ INSERTIONSORT [5,1,4,2]
 SELECTIONSORT [5,1,4,2]
 MERGESORT [5,1,4,2]
 
+--- LEARNING ---
+LEARN
+LEARN STACK | QUEUE | ARRAY | SEARCH | SORT
+
 --- SYSTEM ---
 HELP
 EXIT
@@ -56,6 +61,19 @@ def run_command(command, data_structures):
     if not command.strip():
         return True
 
+    # ---------- LEARN MODE INTERCEPT ----------
+    if "_learn" in data_structures:
+        learn = data_structures["_learn"]
+
+        if not learn.validate(command):
+            return True
+
+        if learn.finished():
+            del data_structures["_learn"]
+            return True
+
+        learn.show_prompt()
+
     parts = command.strip().split(maxsplit=1)
     cmd = parts[0].upper()
 
@@ -65,6 +83,13 @@ def run_command(command, data_structures):
 
     if cmd == "HELP":
         show_help()
+        return True
+
+    # ---------------- LEARN ----------------
+    if cmd == "LEARN":
+        topic = parts[1].strip().upper() if len(parts) > 1 else None
+        data_structures["_learn"] = LearnMode(topic)
+        data_structures["_learn"].show_prompt()
         return True
 
     # ---------------- CREATE ----------------
