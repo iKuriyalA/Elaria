@@ -1,11 +1,17 @@
+# Program entry point and REPL loop
+
 import Elaria
+
 
 def main():
     data_structures = {}
-    running = True
-    while running:
+    Elaria.show_help()
+
+    while True:
         command = input(">>> ")
-        running = Elaria.run_command(command, data_structures)
+        if not Elaria.run_command(command, data_structures):
+            break
+
 
 if __name__ == "__main__":
     main()
