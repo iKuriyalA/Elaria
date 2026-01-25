@@ -51,8 +51,6 @@ Once you have create an array, you will be able to use the following commands:
 - `ARRAY DIAGRAM`: Prints the current contents of the array
 
 All values must be inside brackets to avoid logic errors.  
-### Example Session  
-![image alt](https://github.com/iKuriyalA/Elaria/blob/673f65b93efff9116e077e2d2a1ea3a9cfc4962b/ExArrayRun.png)
 
 ## Stacks
 The stack structure is a basic model of first-in last-out data storage.
@@ -68,8 +66,6 @@ Once you have create a stack, you will be able to use the following commands:
 - `STACK DIAGRAM`: Displays the stack visually (top to bottom)
 
 All values must be inside brackets to avoid logic errors.  
-### Example Session 
-![image alt](https://github.com/iKuriyalA/Elaria/blob/673f65b93efff9116e077e2d2a1ea3a9cfc4962b/ExStackRun.png)
 
 # Algorithms
 Here are the current algorithms used in this language. Following descriptions include how to use them and implement them.  
