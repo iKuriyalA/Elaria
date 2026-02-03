@@ -1,5 +1,3 @@
-# Program entry point and REPL loop
-
 import Elaria
 
 

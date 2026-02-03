@@ -1,12 +1,26 @@
-# learn_mode.py is here
+"""
+LearnMode for Elaria
+====================
+
+- Step-based interactive lessons for STACK, QUEUE, ARRAY, SEARCH, and SORT
+- Guides the user to type the correct commands in order
+- Works with the main REPL and time complexity system
+"""
 
 class LearnMode:
     def __init__(self, topic=None):
-        self.step = 0
-        self.topic = topic
-        self.steps = self._build_steps()
+        self.step = 0              # Tracks current step in the lesson
+        self.topic = topic         # Current topic (STACK, QUEUE, etc.)
+        self.steps = self._build_steps()  # Generate lesson steps
 
     def _build_steps(self):
+        """
+        Generates a list of steps for the selected topic.
+        Each step is a dictionary:
+            "prompt" - instruction shown to the user
+            "expect" - exact command the user must type (or None for free actions)
+        """
+        # Default prompt if no topic selected
         if self.topic is None:
             return [{
                 "prompt": (
@@ -17,9 +31,10 @@ class LearnMode:
                     "LEARN SEARCH\n"
                     "LEARN SORT"
                 ),
-                "expect": None
+                "expect": None  # No command expected, just info
             }]
 
+        # Predefined lessons per topic
         lessons = {
             "STACK": [
                 ("Create a stack.\nType: CREATE STACK", "CREATE STACK"),
@@ -55,25 +70,47 @@ class LearnMode:
             ],
         }
 
+        # Convert each tuple into a step dict
         steps = [{"prompt": p, "expect": e} for p, e in lessons.get(self.topic, [])]
+
+        # Add final completion step
         steps.append({
-            "prompt": f"{self.topic} lesson complete.\nType LEARN to choose another topic.",
+            "prompt": f"{self.topic} lesson complete!\nType LEARN to choose another topic.",
             "expect": None
         })
+
         return steps
 
     def show_prompt(self):
+        """Prints the current step prompt to the user"""
         print(f"\n[LEARN] {self.steps[self.step]['prompt']}")
 
     def validate(self, command):
+        """
+        Checks if the user command matches the expected step.
+        - If None, accepts any input and advances
+        - If correct, advances
+        - If wrong, blocks execution and prints warning
+        """
         expected = self.steps[self.step]["expect"]
+
+        # Free step (like info or completion)
         if expected is None:
+            self.step += 1          # Advance step so finished() can trigger
             return True
+
+        # Correct command typed
         if command.strip().upper() == expected:
             self.step += 1
             return True
+
+        # User typed wrong command
         print("[LEARN] Follow the instruction exactly.")
         return False
 
     def finished(self):
+        """
+        Returns True if all steps completed
+        This allows Elaria to automatically exit Learn Mode
+        """
         return self.step >= len(self.steps)
